@@ -10,11 +10,11 @@ Saya telah membuat sistem otomatis untuk generate **34 folder website portal ber
 Template konfigurasi untuk 34 portal berita. Berisi:
 - **folderName**: Nama folder untuk setiap site (site-01, site-02, dst)
 - **siteName**: Nama portal berita (akan replace "BizNews")
-- **email**: Email portal (akan replace "IndonesiaDaily33@gmail.com")
-- **socialHandle**: Handle social media (akan replace "indonesiadaily")
+- **email**: Email portal (akan replace "gardajabar@gmail.com")
+- **socialHandle**: Handle social media (akan replace "GardaJabar")
 - **colors**: Tema warna
-  - **primary**: Warna utama kuning (contoh: #FFCC00 → custom)
-  - **dark**: Warna gelap hitam (contoh: #1E2024 → custom)
+  - **primary**: Warna utama kuning (contoh: #B45309 → custom)
+  - **dark**: Warna gelap hitam (contoh: #451A03 → custom)
   - **secondary**: Warna sekunder
 
 ### 2. **`tools/generate-sites.js`**
@@ -89,6 +89,23 @@ Atau dari root folder:
 node tools/generate-sites.js
 ```
 
+### **Langkah 3B: Rebrand Garda Jabar via PowerShell**
+
+Gunakan PowerShell dari root project untuk rebrand massal HTML dengan UTF-8 dan backup `articles.json`:
+
+```powershell
+$OutputEncoding = [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+Copy-Item .\articles.json .\articles.json.bak -Force
+Get-ChildItem -Recurse -Include *.html | ForEach-Object {
+    $content = Get-Content $_.FullName -Raw -Encoding UTF8
+    $content = $content.Replace([char]0x201C,'"').Replace([char]0x201D,'"')
+    $content = $content.Replace([char]0x2018,"'").Replace([char]0x2019,"'")
+    $content = $content.Replace([char]0x2013,'-').Replace([char]0x2014,'-')
+    Set-Content $_.FullName -Value $content -Encoding UTF8
+}
+PowerShell -ExecutionPolicy Bypass -File .\rebrand-to-garda-jabar.ps1
+```
+
 ### **Langkah 4: Hasilnya**
 
 Script akan membuat 34 folder baru:
@@ -114,12 +131,12 @@ Script akan mengganti di **semua file** (.html, .css, .js):
 | Yang Direplac | Diganti Dengan |
 |---|---|
 | `BizNews` | `siteName` dari config |
-| `IndonesiaDaily` | `siteName` (tanpa spaces) |
-| `indonesiadaily` | `socialHandle` |
-| `IndonesiaDaily33@gmail.com` | `email` |
-| `#FFCC00` (primary) | Warna primary dari config |
-| `#1E2024` (dark) | Warna dark dari config |
-| `#31404B` (secondary) | Warna secondary dari config |
+| `GardaJabar` | `siteName` (tanpa spaces) |
+| `GardaJabar` | `socialHandle` |
+| `gardajabar@gmail.com` | `email` |
+| `#B45309` (primary) | Warna primary dari config |
+| `#451A03` (dark) | Warna dark dari config |
+| `#5C2E1A` (secondary) | Warna secondary dari config |
 
 ---
 

@@ -1,19 +1,19 @@
 {
-  "name": "indonesiadaily-article-generator",
+  "name": "gardajabar-article-generator",
   "version": "1.0.0",
-  "description": "Generator artikel otomatis dari Google Sheets untuk Indonesia Daily",
+  "description": "Generator artikel otomatis dari Google Sheets untuk Garda Jabar",
   "main": "generate.js",
   "scripts": {
     "generate": "node generate.js",
     "start": "node generate.js"
   },
   "keywords": [
-    "indonesiadaily",
+    "GardaJabar",
     "generator",
     "google-sheets",
     "html"
   ],
-  "author": "Indonesia Daily Team",
+  "author": "Garda Jabar Team",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.6.0",
